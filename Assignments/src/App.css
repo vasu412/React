@@ -62,9 +62,10 @@ main div p{
 
 .cards div{
   text-align: center;
+  margin-top: 40px;
 }
 
 .cards div img{
-  height: 270px;
-  width: 400px;
+  height: 180px;
+  width: 180px;
 }

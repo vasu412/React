@@ -29,15 +29,15 @@ function App() {
 
       <div className="cards">
         <div>
-          <img src="./src/1.png" alt="" />
+          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQqedDRO18eponcqpXaz0z6lnP334BPxY1RcjGiL8zCmeWUN7mx" alt="" />
           <p>enterprise organizations succssfully launched</p>
         </div>
         <div>
-          <img src="./src/2.png" alt="" />
+          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQQt7oKJ0QC7feqsN8ZeKFSaDYD1Ctyvfod2g2Mngho-YFFCqwh" alt="" />
           <p>enterprise users onboarded seamlessly</p>
         </div>
         <div>
-          <img src="./src/3.png" alt="" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKxXfDu1WfzSxNNR20acsMFyCU5wYUUBgqhtKQYotdNQmolQUP" alt="" />
           <p>professionals trained on productand strategy</p>
         </div>
       </div>
