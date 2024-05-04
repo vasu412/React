@@ -1,0 +1,70 @@
+nav{
+  display: flex;
+  height: 100px;
+  background-color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding:0 100px;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+}
+
+.logo img{
+  height: 50px;
+  width: 150px;
+  margin-right: 40px;
+}
+
+.logo span{
+  margin: 0 15px ;
+  font-weight: bold;
+}
+
+.sign span{
+  margin: 0 15px;
+}
+
+ button{
+  height: 40px;
+  width: 110px;
+  border-radius: 3px;
+  background-color: green;
+  border: none;
+  color: white;
+}
+
+main{
+  background-color: rgb(33, 46, 95);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 380px;
+}
+
+main div{
+  width: 700px;
+  text-align: center;
+}
+
+main div p{
+  padding: 0 160px;
+  margin-bottom:50px;
+}
+
+.cards{
+  display: flex;
+  justify-content: space-around;
+}
+
+.cards div{
+  text-align: center;
+}
+
+.cards div img{
+  height: 270px;
+  width: 400px;
+}
