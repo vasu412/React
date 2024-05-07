@@ -1,0 +1,9 @@
+.quoteBox{
+  width: 1182px;
+  padding: 32px;
+  text-align: center;
+  background-color: rgb(17 24 39 );
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 34px;
+}
