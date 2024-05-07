@@ -1,0 +1,17 @@
+.box{
+    height: 240px;
+    width: 180px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.443);
+}
+
+.color{
+    height: 180px;
+}
+
+p{
+    font-size: 12px;
+    margin-left: 10px;
+}
+h3{
+    margin-left: 10px;
+}
