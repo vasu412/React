@@ -1,0 +1,15 @@
+.inputBox{
+  display: flex;
+  flex-direction: column;
+  justifyContent: center;
+  align-items: center;
+  text-align: center;
+}
+
+.options label{
+  margin-right: 20px;
+}
+
+.options{
+  margin-top: 10px;
+}
