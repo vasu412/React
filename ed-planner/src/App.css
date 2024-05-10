@@ -1,0 +1,35 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.inputs{
+  display: flex;
+  align-items:center ;
+  justify-content:center ;
+}
+
+input::placeholder{
+  text-align: center;
+}
+
+input{
+  height: 30px;
+  margin-right: 25px;
+  padding-left: 10px;
+}
+
+.num{
+  width: 75px;
+}
+
+.note{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 300px;
+  margin: 20px;
+}
