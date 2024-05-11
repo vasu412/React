@@ -4,11 +4,19 @@ import Note from "./note";
 
 function App() {
   const [text, setText] = useState("");
-  const [val, setVal] = useState(0);
-  const [append, SetAppend] = useState("");
+  const [val, setVal] = useState("");
+  const [append, SetAppend] = useState([]);
 
   function appended() {
-    SetAppend(<Note text={text} val={val} setVal={setVal()} />);
+    const newText = text.trim();
+    const newVal = Number(val);
+
+    if (newText && newVal > 0) {
+      const newObj = { t: newText, v: newVal };
+      SetAppend((prevAppend) => [...prevAppend, newObj]);
+      setText("");
+      setVal("");
+    }
   }
 
   return (
@@ -29,7 +37,11 @@ function App() {
         />
         <button onClick={appended}>ADD</button>
       </div>
-      <div className="plans">{append}</div>
+      <div className="plans">
+        {append.map((x, i) => {
+          return <Note text={x.t} val={x.v} key={i} />;
+        })}
+      </div>
     </>
   );
 }

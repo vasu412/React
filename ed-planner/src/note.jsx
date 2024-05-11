@@ -1,19 +1,20 @@
-// import PropTypes from 'prop-types';
-// import React from 'react';
+import { useState } from "react";
 
-const Note = ({ text, val, setVal }) => {
+const Note = ({ text, val }) => {
+  let [num, SetNum] = useState(val);
+
   const add = () => {
-    setVal(val++);
+    SetNum(++num);
   };
   const del = () => {
-    setVal(val--);
+    SetNum(--num);
   };
   return (
     <div className="note">
       <span>{text} -</span>
-      <span>{val} HOURS</span>
-      <button onClick={add}>ADD</button>
-      <button onClick={del}>DEL</button>
+      <span>{num} HOURS</span>
+      <button onClick={add}>+</button>
+      <button onClick={del}>-</button>
     </div>
   );
 };
