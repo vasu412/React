@@ -1,0 +1,22 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.bar{
+  border: 1px solid black;
+  height: 20px;
+  width: 500px;
+  text-align: center;
+  background: linear-gradient(to right, #14bf98 var(--count, 0%), rgb(246, 242, 242) var(--count, 0%));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+p{
+  margin: 0;
+}
