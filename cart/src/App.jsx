@@ -3,10 +3,10 @@ import Item from "./item";
 import React from "react";
 import "./index.css";
 
-const reducer = (state, action) => {};
+// const reducer = (state, action) => {};
 
 function App() {
-  const [count, setCount] = useReducer(reducer, initialVal);
+  // const [count, setCount] = useReducer(reducer, initialVal);
 
   return (
     <>
