@@ -85,3 +85,8 @@ button:hover{
   justify-content: center;
   align-items: center;
 }
+
+.btns button{
+  margin: 0 8px;
+  padding: 1px 4px;
+}

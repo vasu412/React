@@ -1,13 +1,41 @@
-import { useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import Item from "./item";
 import React from "react";
 import "./index.css";
 
-// const reducer = (state, action) => {};
-
 function App() {
-  // const [count, setCount] = useReducer(reducer, initialVal);
+  const [val, setVal] = useState(0);
+  const [list, setList] = useState([]);
+  const [checkClick, setCheckClick] = useState("Add To Cart");
+  const [quantity, setQuantity] = useState(1);
+  const [display, setDisplay] = useState("block");
 
+  function buttonClicked(img, price, id) {
+    const obj = {
+      img: img,
+      price: price,
+    };
+
+    setDisplay("block");
+    setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
+    // setPrice(price);
+    setCheckClick("In Basket");
+    let rightP = document.querySelector(".rightP");
+    rightP.style.display = "none";
+
+    let btn = document.querySelectorAll(".btn");
+    btn[id - 1].style.backgroundColor = "transparent";
+
+    btn[id - 1].innerText = "In basket";
+
+    setList((prevList) => {
+      // if (prevList.some((item) => item.id === obj.id)) {
+      //   return prevList;
+      // }
+
+      return [...prevList, obj];
+    });
+  }
   return (
     <>
       <div className="left">
@@ -33,6 +61,10 @@ function App() {
             price={"418"}
             prevPrice={"499.00"}
             bold={"Unscented · Wrinkle Treatment,Pore Treatment"}
+            key={1}
+            id={1}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"Brinton"}
@@ -46,6 +78,10 @@ function App() {
             price={"630"}
             prevPrice={"745.00"}
             bold={"50 Sun Protection Factor (SPF)"}
+            key={2}
+            id={2}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"Mamaearth"}
@@ -59,6 +95,10 @@ function App() {
             price={"359"}
             prevPrice={"499.00"}
             bold={"80 Grams · 180 Grams · 1"}
+            key={3}
+            id={3}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"FIXDERMA"}
@@ -72,6 +112,10 @@ function App() {
             price={"198"}
             prevPrice={"220.00"}
             bold={"SHADOW SPF 30 GEL · Oil ControlSHADOW SPF 30 GEL "}
+            key={4}
+            id={4}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"Aqualogica"}
@@ -85,6 +129,10 @@ function App() {
             price={"372"}
             prevPrice={"499.00"}
             bold={"Papaya · Ultra-Violet Protection"}
+            key={5}
+            id={5}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"LAKMÉ"}
@@ -98,6 +146,10 @@ function App() {
             price={"329"}
             prevPrice={"575.00"}
             bold={"Cucumber · Dark Spot Correction"}
+            key={6}
+            id={5}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"Neutrogena"}
@@ -111,6 +163,10 @@ function App() {
             price={"300"}
             prevPrice={"625.00"}
             bold={"Non-ComedogenicUnscented"}
+            key={7}
+            id={7}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
           <Item
             company={"Minimalist"}
@@ -124,15 +180,19 @@ function App() {
             price={"379"}
             prevPrice={"399.00"}
             bold={"Unscented · Hydrating"}
+            key={8}
+            id={8}
+            buttonClicked={buttonClicked}
+            checkClick={checkClick}
           />
         </div>
       </div>
       <div className="right">
-        <h3 style={{ margin: "10px 0", display: "none" }} className="rightH">
+        <h3 style={{ margin: "10px 0" }} className="rightH">
           CART
         </h3>
-        <h4 style={{ margin: "10px 0", display: "none" }} className="rightH2">
-          SubTotal
+        <h4 style={{ margin: "10px 0" }} className="rightH2">
+          SubTotal : {val}
         </h4>
         <span
           style={{
@@ -142,9 +202,69 @@ function App() {
             display: "none",
           }}
           className="span"></span>
-        <hr className="span" style={{ display: "none" }} />
+        <hr className="span" />
         <p className="rightP">No Product added to the cart</p>
-        <div className="cart_data"></div>
+        <div className="cart_data">
+          {list.map((x) => {
+            return (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  height: "205px",
+                  width: "130px",
+                  display: display,
+                }}
+                onClick={(e) => {
+                  removal;
+                }}>
+                <img src={x.img} style={{ height: "120px", width: "100px" }} />
+                <span>
+                  <b style={{ fontFamily: "Ubuntu, sans-serif" }}>{x.price}</b>
+                </span>
+                <span>Quantity:{quantity}</span>
+                <div className="btns">
+                  <button
+                    onClick={() => {
+                      setQuantity((prevQt) => prevQt + 1);
+                      setVal(
+                        (prevVal) => parseFloat(prevVal) + parseFloat(x.price)
+                      );
+                    }}>
+                    +
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (quantity > 1) {
+                        setQuantity((prevQt) => prevQt - 1);
+                      }
+                      if (x.price < val) {
+                        setVal(
+                          (prevVal) => parseFloat(prevVal) - parseFloat(x.price)
+                        );
+                      }
+                    }}>
+                    -
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      setVal(
+                        (prevVal) => parseFloat(prevVal) - parseFloat(x.price)
+                      );
+                      function removal(e) {
+                        e.target.remove();
+                      }
+                    }}>
+                    <i className="material-icons" style={{ fontSize: "14px" }}>
+                      delete
+                    </i>
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
