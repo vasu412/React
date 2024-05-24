@@ -216,9 +216,7 @@ function App() {
                   width: "130px",
                   display: display,
                 }}
-                onClick={(e) => {
-                  removal;
-                }}>
+                className="main">
                 <img src={x.img} style={{ height: "120px", width: "100px" }} />
                 <span>
                   <b style={{ fontFamily: "Ubuntu, sans-serif" }}>{x.price}</b>
@@ -249,12 +247,13 @@ function App() {
                   </button>
                   <button
                     onClick={(e) => {
-                      setVal(
-                        (prevVal) => parseFloat(prevVal) - parseFloat(x.price)
-                      );
-                      function removal(e) {
-                        e.target.remove();
-                      }
+                      const main = document.querySelector(".main");
+                      main.remove();
+                      setVal((prevVal) => {
+                        let q = quantity;
+                        parseFloat(prevVal) - parseFloat(x.price) * q;
+                        setQuantity((prevQ) => prevQ - q);
+                      });
                     }}>
                     <i className="material-icons" style={{ fontSize: "14px" }}>
                       delete
