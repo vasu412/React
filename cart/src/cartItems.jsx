@@ -1,5 +1,5 @@
 import { useState } from "react";
-const CartItems = ({ x, val, setVal }) => {
+const CartItems = ({ x, val, setVal, setList }) => {
   const [quantity, setQuantity] = useState(1);
   const [showItem, setShowItem] = useState(true);
 
@@ -48,6 +48,11 @@ const CartItems = ({ x, val, setVal }) => {
                   return parseFloat(prevVal) - parseFloat(x.price) * q;
                 });
                 setShowItem(false);
+                const obj = {
+                  img: img,
+                  price: price,
+                };
+                setList((prevList) => [...prevList, obj]);
               }}>
               <i className="material-icons" style={{ fontSize: "14px" }}>
                 delete

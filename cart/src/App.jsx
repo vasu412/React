@@ -15,14 +15,19 @@ function App() {
       price: price,
     };
 
-    setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
-
     if (list.length === 0) {
       let rightP = document.querySelector(".rightP");
       rightP.style.display = "none";
     }
 
     setList((prevList) => {
+      for (let i = 0; i < prevList.length; i++) {
+        if (JSON.stringify(prevList[i]) === JSON.stringify(obj)) {
+          return prevList;
+          break;
+        }
+      }
+      setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
       return [...prevList, obj];
     });
   }
@@ -203,6 +208,7 @@ function App() {
                 val={val}
                 setVal={setVal}
                 buttonClicked={buttonClicked}
+                setList={setList}
               />
             );
           })}
