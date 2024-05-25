@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Item from "./item";
 import React from "react";
 import "./index.css";
+import CartItems from "./cartItems";
 
 function App() {
   const [val, setVal] = useState(0);
   const [list, setList] = useState([]);
   const [checkClick, setCheckClick] = useState("Add To Cart");
-  const [quantity, setQuantity] = useState(1);
-  const [display, setDisplay] = useState("block");
+
+  function setDis(idx) {
+    setList((prevList) => prevList.splice(1, idx));
+  }
 
   function buttonClicked(img, price, id) {
     const obj = {
@@ -16,9 +19,8 @@ function App() {
       price: price,
     };
 
-    setDisplay("block");
     setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
-    // setPrice(price);
+
     setCheckClick("In Basket");
     let rightP = document.querySelector(".rightP");
     rightP.style.display = "none";
@@ -29,10 +31,6 @@ function App() {
     btn[id - 1].innerText = "In basket";
 
     setList((prevList) => {
-      // if (prevList.some((item) => item.id === obj.id)) {
-      //   return prevList;
-      // }
-
       return [...prevList, obj];
     });
   }
@@ -205,62 +203,15 @@ function App() {
         <hr className="span" />
         <p className="rightP">No Product added to the cart</p>
         <div className="cart_data">
-          {list.map((x) => {
+          {list.map((x, idx) => {
             return (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  height: "205px",
-                  width: "130px",
-                  display: display,
-                }}
-                className="main">
-                <img src={x.img} style={{ height: "120px", width: "100px" }} />
-                <span>
-                  <b style={{ fontFamily: "Ubuntu, sans-serif" }}>{x.price}</b>
-                </span>
-                <span>Quantity:{quantity}</span>
-                <div className="btns">
-                  <button
-                    onClick={() => {
-                      setQuantity((prevQt) => prevQt + 1);
-                      setVal(
-                        (prevVal) => parseFloat(prevVal) + parseFloat(x.price)
-                      );
-                    }}>
-                    +
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (quantity > 1) {
-                        setQuantity((prevQt) => prevQt - 1);
-                      }
-                      if (x.price < val) {
-                        setVal(
-                          (prevVal) => parseFloat(prevVal) - parseFloat(x.price)
-                        );
-                      }
-                    }}>
-                    -
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      const main = document.querySelector(".main");
-                      main.remove();
-                      setVal((prevVal) => {
-                        let q = quantity;
-                        parseFloat(prevVal) - parseFloat(x.price) * q;
-                        setQuantity((prevQ) => prevQ - q);
-                      });
-                    }}>
-                    <i className="material-icons" style={{ fontSize: "14px" }}>
-                      delete
-                    </i>
-                  </button>
-                </div>
-              </div>
+              <CartItems
+                x={x}
+                val={val}
+                setVal={setVal}
+                setDis={setDis}
+                idx={idx}
+              />
             );
           })}
         </div>
