@@ -1,8 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
-import { useContext } from "react";
-import displayContext from "./context";
-// import { buttonClicked } from "./App";
 
 const Item = ({
   company,
@@ -15,6 +12,8 @@ const Item = ({
   id,
   buttonClicked,
 }) => {
+  const [checkClick, setCheckClick] = useState(false);
+
   return (
     <div className="item">
       <div className="img">
@@ -42,11 +41,13 @@ const Item = ({
       </p>
       <button
         value="0"
-        onClick={() => {
+        onClick={(e) => {
           buttonClicked(img, price, id);
+          setCheckClick(true);
+          e.target.style.backgroundColor = "transparent";
         }}
         className="btn">
-        Add To Cart
+        {checkClick ? "In Basket" : "Add To Cart"}
       </button>
     </div>
   );

@@ -7,11 +7,7 @@ import CartItems from "./cartItems";
 function App() {
   const [val, setVal] = useState(0);
   const [list, setList] = useState([]);
-  const [checkClick, setCheckClick] = useState("Add To Cart");
-
-  function setDis(idx) {
-    setList((prevList) => prevList.splice(1, idx));
-  }
+  const [checkClick, setCheckClick] = useState(false);
 
   function buttonClicked(img, price, id) {
     const obj = {
@@ -21,14 +17,10 @@ function App() {
 
     setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
 
-    setCheckClick("In Basket");
-    let rightP = document.querySelector(".rightP");
-    rightP.style.display = "none";
-
-    let btn = document.querySelectorAll(".btn");
-    btn[id - 1].style.backgroundColor = "transparent";
-
-    btn[id - 1].innerText = "In basket";
+    if (list.length === 0) {
+      let rightP = document.querySelector(".rightP");
+      rightP.style.display = "none";
+    }
 
     setList((prevList) => {
       return [...prevList, obj];
@@ -206,11 +198,11 @@ function App() {
           {list.map((x, idx) => {
             return (
               <CartItems
+                key={idx}
                 x={x}
                 val={val}
                 setVal={setVal}
-                setDis={setDis}
-                idx={idx}
+                buttonClicked={buttonClicked}
               />
             );
           })}
