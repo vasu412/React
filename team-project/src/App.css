@@ -1,0 +1,23 @@
+.main{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.left,.right{
+  height: 600px;
+  width: 450px;
+  border: 7px solid black;
+  margin-right: 50px;
+  text-align: center;
+  color: black;
+  overflow: scroll;
+}
+
+.employees{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  height: 50px;
+  margin: 20px;
+}
