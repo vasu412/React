@@ -5,8 +5,14 @@ import Right from "./right";
 import Left from "./left";
 
 function App() {
-  const [dis, setDis] = useState("none");
+  // const [dis, setDis] = useState([]);
   const [list, setList] = useState([]);
+  const [dis, setDis] = useState(
+    employees.reduce((acc, employee) => {
+      acc[employee.first_name] = "block";
+      return acc;
+    }, {})
+  );
 
   function add(first_name, last_name, age) {
     let obj = {
@@ -14,7 +20,11 @@ function App() {
       last_name: last_name,
       age: age,
     };
+    let obj2 = {
+      first_name: "none",
+    };
     setList((prevList) => [...prevList, obj]);
+    setDis((prev) => ({ ...prev, [first_name]: "none" }));
   }
 
   function sort() {
@@ -27,6 +37,7 @@ function App() {
     setList((prevList) => {
       return prevList.filter((item) => item["first_name"] !== first_name);
     });
+    setDis((prev) => ({ ...prev, [first_name]: "block" }));
   }
 
   return (

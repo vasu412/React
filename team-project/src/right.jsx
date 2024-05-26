@@ -22,8 +22,8 @@ const Right = ({ add, dis }) =>
       <button
         onClick={(e) => {
           add(first_name, last_name, age);
-          e.target.style.display = dis;
-        }}>
+        }}
+        style={{ display: dis[first_name] }}>
         ADD
       </button>
     </div>

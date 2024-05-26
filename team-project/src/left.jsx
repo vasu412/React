@@ -20,7 +20,6 @@ const Left = ({ list, remove, setDis }) =>
       </div>
       <button
         onClick={() => {
-          setDis("block");
           remove(first_name);
         }}>
         REMOVE
