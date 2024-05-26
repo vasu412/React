@@ -3,16 +3,24 @@ import Item from "./item";
 import React from "react";
 import "./index.css";
 import CartItems from "./cartItems";
+import products from "./products";
 
 function App() {
   const [val, setVal] = useState(0);
   const [list, setList] = useState([]);
-  const [checkClick, setCheckClick] = useState(false);
+
+  const [checkClick, setCheckClick] = useState(
+    products.reduce((acc, curr) => {
+      acc[curr.price] = "Add To Cart";
+      return acc;
+    }, {})
+  );
 
   function buttonClicked(img, price, id) {
     const obj = {
       img: img,
       price: price,
+      id: id,
     };
 
     if (list.length === 0) {
@@ -21,15 +29,14 @@ function App() {
     }
 
     setList((prevList) => {
-      for (let i = 0; i < prevList.length; i++) {
-        if (JSON.stringify(prevList[i]) === JSON.stringify(obj)) {
-          return prevList;
-          break;
-        }
+      if (prevList.some((item) => item.id === id)) {
+        return prevList;
       }
       setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
       return [...prevList, obj];
     });
+
+    setCheckClick((prev) => ({ ...prev, [price]: "In Basket" }));
   }
   return (
     <>
@@ -142,7 +149,7 @@ function App() {
             prevPrice={"575.00"}
             bold={"Cucumber · Dark Spot Correction"}
             key={6}
-            id={5}
+            id={6}
             buttonClicked={buttonClicked}
             checkClick={checkClick}
           />
@@ -204,11 +211,12 @@ function App() {
             return (
               <CartItems
                 key={idx}
+                id={idx + 1}
                 x={x}
                 val={val}
                 setVal={setVal}
-                buttonClicked={buttonClicked}
                 setList={setList}
+                setCheckClick={setCheckClick}
               />
             );
           })}

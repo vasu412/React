@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./index.css";
 
 const Item = ({
@@ -11,9 +10,8 @@ const Item = ({
   bold,
   id,
   buttonClicked,
+  checkClick,
 }) => {
-  const [checkClick, setCheckClick] = useState(false);
-
   return (
     <div className="item">
       <div className="img">
@@ -43,11 +41,12 @@ const Item = ({
         value="0"
         onClick={(e) => {
           buttonClicked(img, price, id);
-          setCheckClick(true);
-          e.target.style.backgroundColor = "transparent";
+          if (checkClick[price] === "Add To Cart") {
+            e.target.style.backgroundColor = "transparent";
+          }
         }}
         className="btn">
-        {checkClick ? "In Basket" : "Add To Cart"}
+        {checkClick[price]}
       </button>
     </div>
   );
