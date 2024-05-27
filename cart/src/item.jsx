@@ -41,9 +41,9 @@ const Item = ({
         value="0"
         onClick={(e) => {
           buttonClicked(img, price, id);
-          if (checkClick[price] === "Add To Cart") {
-            e.target.style.backgroundColor = "transparent";
-          }
+          // if (checkClick[price] === "Add To Cart") {
+          //   e.target.style.backgroundColor = "transparent";
+          // }
         }}
         className="btn">
         {checkClick[price]}

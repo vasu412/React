@@ -8,6 +8,7 @@ import products from "./products";
 function App() {
   const [val, setVal] = useState(0);
   const [list, setList] = useState([]);
+  const [itemQuantity, setItemQuantity] = useState([]);
 
   const [checkClick, setCheckClick] = useState(
     products.reduce((acc, curr) => {
@@ -32,6 +33,7 @@ function App() {
       if (prevList.some((item) => item.id === id)) {
         return prevList;
       }
+      setItemQuantity((prev) => [...prev, { quantity: 1, itemPrice: price }]);
       setVal((prevVal) => parseFloat(prevVal) + parseFloat(price));
       return [...prevList, obj];
     });
@@ -211,12 +213,14 @@ function App() {
             return (
               <CartItems
                 key={idx}
-                id={idx + 1}
+                id={idx}
                 x={x}
                 val={val}
                 setVal={setVal}
                 setList={setList}
                 setCheckClick={setCheckClick}
+                itemQuantity={itemQuantity}
+                setItemQuantity={setItemQuantity}
               />
             );
           })}

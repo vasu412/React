@@ -1,9 +1,45 @@
-import { useState } from "react";
+const CartItems = ({
+  id,
+  x,
+  val,
+  setVal,
+  setList,
+  setCheckClick,
+  itemQuantity,
+  setItemQuantity,
+}) => {
+  const handleIncrement = () => {
+    setItemQuantity((prev) => {
+      const updatedQuantities = prev.map((item, index) =>
+        index === id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      return updatedQuantities;
+    });
+    setVal((prevVal) => parseFloat(prevVal) + parseFloat(x.price));
+  };
 
-const CartItems = ({ x, val, setVal, setList, setCheckClick }) => {
-  const [quantity, setQuantity] = useState(1);
+  const handleDecrement = () => {
+    if (itemQuantity[id].quantity > 1) {
+      setItemQuantity((prev) => {
+        const updatedQuantities = prev.map((item, idx) => {
+          return idx === id ? { ...item, quantity: item.quantity - 1 } : item;
+        });
+        return updatedQuantities;
+      });
+      setVal((prevVal) => parseFloat(prevVal) - parseFloat(x.price));
+    }
+  };
+
+  const handleDelete = () => {
+    const quantityToRemove = itemQuantity[id].quantity;
+    setVal(
+      (prevVal) => parseFloat(prevVal) - parseFloat(x.price) * quantityToRemove
+    );
+    setCheckClick((prev) => ({ ...prev, [x.price]: "Add To Cart" }));
+    setList((prev) => prev.filter((item) => item.id !== x.id));
+    setItemQuantity((prev) => prev.filter((_, index) => index !== id));
+  };
   {
-    // if (!showItem) return null;
     return (
       <div
         style={{
@@ -18,35 +54,11 @@ const CartItems = ({ x, val, setVal, setList, setCheckClick }) => {
         <span>
           <b style={{ fontFamily: "Ubuntu, sans-serif" }}>₹{x.price}</b>
         </span>
-        <span>Quantity:{quantity}</span>
+        <span>Quantity:{itemQuantity[id].quantity}</span>
         <div className="btns">
-          <button
-            onClick={() => {
-              setQuantity((prevQt) => prevQt + 1);
-              setVal((prevVal) => parseFloat(prevVal) + parseFloat(x.price));
-            }}>
-            +
-          </button>
-          <button
-            onClick={() => {
-              if (quantity > 1) {
-                setQuantity((prevQt) => prevQt - 1);
-              }
-              if (x.price < val) {
-                setVal((prevVal) => parseFloat(prevVal) - parseFloat(x.price));
-              }
-            }}>
-            -
-          </button>
-          <button
-            onClick={() => {
-              setVal((prevVal) => {
-                return parseFloat(prevVal) - parseFloat(x.price) * quantity;
-              });
-              setCheckClick((prev) => ({ ...prev, [x.price]: "Add To Cart" }));
-              setList((prev) => prev.filter((item) => item.price !== x.price));
-              // setShowItem(false);
-            }}>
+          <button onClick={handleIncrement}>+</button>
+          <button onClick={handleDecrement}>-</button>
+          <button onClick={handleDelete}>
             <i className="material-icons" style={{ fontSize: "14px" }}>
               delete
             </i>
