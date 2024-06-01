@@ -1,20 +1,57 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import "./App.css";
+import Content from "./content";
 
 function App() {
-  const todos = [];
-
   function reducer(state, action) {
-    return action.type === "addObj"
-      ? [...state, action.value]
-      : action.type === "del"
-      ? state.filter((x, idx) => idx !== action.value)
-      : action.type === "search"
-      ? state.filter((x) => x.includes(action.value))
-      : state;
+    switch (action.type) {
+      case "del":
+        const remainingVal = state.todos.filter(
+          (x, idx) => idx !== action.value
+        );
+        return {
+          todos: remainingVal,
+          filtered: remainingVal,
+        };
+      case "addObj":
+        const addedVal = [...state.todos, action.value];
+        return {
+          todos: addedVal,
+          filtered: addedVal,
+        };
+
+      case "search":
+        if (action.value === "") {
+          return {
+            ...state,
+            filtered: state.todos,
+          };
+        }
+        const filteredData = state.todos.filter((x) =>
+          x.toLowerCase().includes(action.value)
+        );
+
+        return {
+          ...state,
+          filtered: filteredData,
+        };
+
+      case "edit":
+        const editData = state.todos.map((x, idx) => {
+          if (idx === action.index) x = action.value;
+          return x;
+        });
+        return {
+          todos: editData,
+          filtered: editData,
+        };
+
+      default:
+        return state;
+    }
   }
 
-  const [state, dispatch] = useReducer(reducer, todos);
+  const [state, dispatch] = useReducer(reducer, { todos: [], filtered: [] });
 
   function handleSearch(e) {
     dispatch({ type: "search", value: e.target.value });
@@ -68,33 +105,8 @@ function App() {
         {/* <button>Search</button> */}
       </form>
 
-      {state.map((x, idx) => {
-        return (
-          <div
-            key={x}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}>
-            <p>{x}</p>
-            <div>
-              <span
-                style={{ marginRight: "10px" }}
-                onClick={() => {
-                  dispatch({ type: "del", value: idx });
-                }}>
-                🗑️
-              </span>
-              <span
-                onClick={(e) => {
-                  e.target.style.textDecoration = "line-through";
-                }}>
-                ✅
-              </span>
-            </div>
-          </div>
-        );
+      {state.filtered.map((x, idx) => {
+        return <Content x={x} idx={idx} dispatch={dispatch} key={idx} />;
       })}
     </>
   );
