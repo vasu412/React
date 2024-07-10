@@ -52,6 +52,7 @@ const Button = styled.button`
 
 function App() {
   const [add, setAdd] = useState(false);
+  const [search, setSearch] = useState(false);
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -60,6 +61,7 @@ function App() {
     aadharNum: "",
     mobileNum: "",
   });
+  const [searchResults, setSearchResults] = useState(null);
 
   useEffect(() => {
     const storedData = [];
@@ -100,6 +102,16 @@ function App() {
     setData(data.filter((item) => item.aadharNum !== num));
   };
 
+  const handleSearchChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const result = data.find((item) => item.aadharNum === formData.aadharNum);
+    setSearchResults(result ? [result] : []);
+  };
+
   return (
     <>
       <h1>Directory App</h1>
@@ -110,11 +122,21 @@ function App() {
           justifyContent: "center",
           margin: "20px",
         }}>
-        <button onClick={() => setAdd(false)}>All Persons</button>
-        <button>Search</button>
+        <button
+          onClick={() => {
+            setAdd(false), setSearch(false);
+          }}>
+          All Persons
+        </button>
+        <button
+          onClick={() => {
+            setSearch(true), setAdd(false);
+          }}>
+          Search
+        </button>
         <button onClick={() => setAdd(true)}>ADD</button>
       </div>
-      {add && (
+      {add ? (
         <FormContainer>
           <form
             onSubmit={handleSubmit}
@@ -180,40 +202,102 @@ function App() {
             </FormGroup>
           </form>
         </FormContainer>
-      )}
-      {!add && (
-        <FormContainer>
-          <form
-            style={{ display: "flex", flexDirection: "column", gap: "25px" }}>
-            <form style={{ display: "flex", gap: "35px" }}>
-              <Label htmlFor="name">Name</Label>
-              <Label htmlFor="dob">Date of Birth</Label>
-              <Label htmlFor="age">Age</Label>
-              <Label htmlFor="aadharNum">Number</Label>
-              <Label htmlFor="mobileNum">Mobile Number</Label>
-              <Label htmlFor="mobileNum">Actions</Label>
+      ) : !add && !search ? (
+        <>
+          <FormContainer>
+            <form
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "25px",
+              }}>
+              <form style={{ display: "flex", gap: "35px" }}>
+                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="dob">Date of Birth</Label>
+                <Label htmlFor="age">Age</Label>
+                <Label htmlFor="aadharNum">Number</Label>
+                <Label htmlFor="mobileNum">Mobile Number</Label>
+                <Label htmlFor="mobileNum">Actions</Label>
+              </form>
+              {data.map((x) => (
+                <div
+                  key={x.aadharNum}
+                  style={{
+                    display: "flex",
+                    gap: "35px",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}>
+                  <Label>{x.name}</Label>
+                  <Label>{x.dob}</Label>
+                  <Label>{x.age}</Label>
+                  <Label>{x.aadharNum}</Label>
+                  <Label>{x.mobileNum}</Label>
+                  <Button onClick={() => handleDelete(x.aadharNum)}>
+                    Delete
+                  </Button>
+                </div>
+              ))}
             </form>
-            {data.map((x) => (
-              <div
-                key={x.aadharNum}
-                style={{
-                  display: "flex",
-                  gap: "35px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}>
-                <Label>{x.name}</Label>
-                <Label>{x.dob}</Label>
-                <Label>{x.age}</Label>
-                <Label>{x.aadharNum}</Label>
-                <Label>{x.mobileNum}</Label>
-                <Button onClick={() => handleDelete(x.aadharNum)}>
-                  Delete
-                </Button>
-              </div>
-            ))}
-          </form>
-        </FormContainer>
+          </FormContainer>
+        </>
+      ) : (
+        search && (
+          <FormContainer>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}>
+              <form
+                onSubmit={handleSearchSubmit}
+                style={{ display: "flex", gap: "15px" }}>
+                <FormGroup>
+                  <Label htmlFor="aadharNum">Number</Label>
+                  <Input
+                    type="number"
+                    id="aadharNum"
+                    name="aadharNum"
+                    value={formData.aadharNum}
+                    onChange={handleSearchChange}
+                    placeholder="Enter your number"
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="mobileNum">Actions</Label>
+                  <Button type="submit">Search</Button>
+                </FormGroup>
+              </form>
+              <form>
+                {searchResults && searchResults.length > 0 ? (
+                  searchResults.map((x) => (
+                    <div
+                      key={x.aadharNum}
+                      style={{
+                        display: "flex",
+                        gap: "35px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}>
+                      <Label>{x.name}</Label>
+                      <Label>{x.dob}</Label>
+                      <Label>{x.age}</Label>
+                      <Label>{x.aadharNum}</Label>
+                      <Label>{x.mobileNum}</Label>
+                      <Button onClick={() => handleDelete(x.aadharNum)}>
+                        Delete
+                      </Button>
+                    </div>
+                  ))
+                ) : searchResults && searchResults.length === 0 ? (
+                  <p>No results found</p>
+                ) : null}
+              </form>
+            </div>
+          </FormContainer>
+        )
       )}
     </>
   );

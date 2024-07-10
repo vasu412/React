@@ -1,8 +1,25 @@
-# React + Vite
+# Directory App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple directory application built with React that allows users to add, view, and delete persons' details.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Add a new person's details including name, date of birth, age, Aadhar number, and mobile number.
+- View all stored persons' details.
+- Delete a person's details from the directory.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Make sure you have Node.js and npm installed on your machine. You can download them from [Node.js](https://nodejs.org/).
+
+### Installing
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/directory-app.git
+   cd directory-app
+   ```
