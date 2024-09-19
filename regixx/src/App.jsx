@@ -20,8 +20,7 @@ const App = () => {
       email: Yup.string()
         .email("Invalid email format")
         .required("Email is required")
-        .matches(/@gmail\.com$/, "Email must end with @gmail.com")
-        .matches(/regex@gmail\.com$/, "Email must be regex@gmail.com"),
+        .matches(/@gmail\.com$/, "Email must end with @gmail.com"),
       password: Yup.string()
         .required("Password is required")
         .matches(type, "Password must start from r__M_9"),
@@ -35,9 +34,6 @@ const App = () => {
     validateOnMount: true,
   });
 
-  useEffect(() => {
-    console.log("Formik state:", formik);
-  }, [formik]);
   return (
     <div className="box">
       <form onSubmit={formik.handleSubmit}>
