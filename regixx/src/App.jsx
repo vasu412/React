@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./App.css";
 
 const App = () => {
-  const type = "/^r.*M.*9.*$/";
-  const emailType = "/^[a-zA-Z0-9._%+-]+@gmail.com$/";
+  const type = "/^r__M_9/";
   const formik = useFormik({
     initialValues: {
       firstName: "",
