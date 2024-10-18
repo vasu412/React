@@ -24,9 +24,21 @@ const RecipeCards = ({ card }) => {
           className="mt-3 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600"
           onClick={() => {
             const data = JSON.parse(localStorage.getItem("recipes"));
-            data
-              ? localStorage.setItem("recipes", JSON.stringify([...data, card]))
-              : localStorage.setItem("recipes", JSON.stringify([card]));
+            if (data) {
+              const item = data.find((x) => x.idMeal === card.idMeal);
+              if (!item)
+                localStorage.setItem(
+                  "recipes",
+                  JSON.stringify([...data, card])
+                );
+              else {
+                alert("Item already exists in favourites");
+                return;
+              }
+            } else {
+              localStorage.setItem("recipes", JSON.stringify([card]));
+            }
+            alert("Added to favourites");
           }}>
           Add to favourites
         </button>
