@@ -1,5 +1,5 @@
 {
-  "name": "progress-bar",
+  "name": "gym-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,9 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ionic/react": "^8.1.1",
+    "@firebase/auth": "^1.7.9",
+    "firebase": "^10.14.0",
+    "geekster_greet": "^1.1.0",
+    "gsap": "^3.12.5",
+    "package-functions": "^1.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.79.4",
+    "scrollmagic": "^2.0.8",
+    "scrollmagic-plugin-gsap": "^1.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

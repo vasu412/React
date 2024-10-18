@@ -1,0 +1,22 @@
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+}
+img{
+  /* transform: rotate(90deg); */
+  height: 100vh;
+  width: 100%;
+}
+h1 {
+  font-size: 2.6rem;
+  width: 380px;
+  line-height: 1.1;
+  /* font-family: Georgia, 'Times New Roman', Times, serif; */
+  font-family: "Dancing Script", cursive;
+  position: absolute;
+  top: 350px;
+  left: 510px;
+}
